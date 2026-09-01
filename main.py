@@ -20,7 +20,30 @@ class GitHubMetricsFetcher:
         self.headers = {"Authorization": f"Bearer {token}"}
 
     def fetch_stats(self) -> Dict[str, Any]:
-        query = "query($login: String!) { user(login: $login) { followers { totalCount } repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: PUSHED_AT, direction: DESC}) { totalCount nodes { stargazerCount defaultBranchRef { target { ... on Commit { history(author: { id: $login }) { totalCount } } } } languages(first: 10) { edges { size } } } } } }"
+        # Query corrigida para usar o login como string no escopo de author
+        query = """
+        query($login: String!) {
+          user(login: $login) {
+            followers { totalCount }
+            repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: PUSHED_AT, direction: DESC}) {
+              totalCount
+              nodes {
+                stargazerCount
+                defaultBranchRef {
+                  target {
+                    ... on Commit { 
+                      history(author: { username: $login }) { totalCount } 
+                    } 
+                  }
+                }
+                languages(first: 10) {
+                  edges { size }
+                }
+              }
+            }
+          }
+        }
+        """
         variables = {"login": self.username}
         
         try:
@@ -56,7 +79,9 @@ class GitHubMetricsFetcher:
             for repo in repos:
                 branch = repo.get('defaultBranchRef')
                 if branch and branch.get('target'):
-                    total_commits += branch['target']['history']['totalCount']
+                    history = branch['target'].get('history')
+                    if history:
+                        total_commits += history.get('totalCount', 0)
                 
                 for edge in repo['languages'].get('edges', []):
                     total_loc += edge['size'] // 30 
