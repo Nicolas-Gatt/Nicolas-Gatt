@@ -20,7 +20,7 @@ jobs:
           
       - name: Instalar Dependencias
         run: pip install requests
-        
+          
       - name: Executar Motor SVG
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
