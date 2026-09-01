@@ -20,7 +20,7 @@ class GitHubMetricsFetcher:
         self.headers = {"Authorization": f"Bearer {token}"}
 
     def fetch_stats(self) -> Dict[str, Any]:
-        # Query corrigida para usar o login como string no escopo de author
+        # Query ajustada removendo o filtro de author incompatível com string
         query = """
         query($login: String!) {
           user(login: $login) {
@@ -32,7 +32,7 @@ class GitHubMetricsFetcher:
                 defaultBranchRef {
                   target {
                     ... on Commit { 
-                      history(author: { username: $login }) { totalCount } 
+                      history { totalCount } 
                     } 
                   }
                 }
