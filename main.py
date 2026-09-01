@@ -144,6 +144,8 @@ class SvgRenderer:
 
 if __name__ == "__main__":
     ASCII_ART = [
+        "                                ",
+        "                                ",
         "      - -  W E L C O M E  - -   ",
         "                                ",
         "          (  )   (   )  )       ",
