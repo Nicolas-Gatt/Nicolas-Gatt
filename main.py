@@ -12,6 +12,7 @@ if not GITHUB_TOKEN:
 else:
     print(f"Token detectado com sucesso (tamanho: {len(GITHUB_TOKEN)} caracteres).")
 
+
 class GitHubMetricsFetcher:
     GRAPHQL_URL = "https://api.github.com/graphql"
     
@@ -149,7 +150,7 @@ if __name__ == "__main__":
         "           ) (   )  (  (        ",
         "           ( )  (    ) )        ",
         "           _____________        ",
-        "          <_____________> ___   ",
+        "          &lt;_____________&gt; ___   ",
         "          |             |/ _ \\  ",
         "          |               | | | ",
         "          |               |_| | ",
