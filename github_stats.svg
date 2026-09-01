@@ -16,7 +16,7 @@
   <text x="400" y="110" xml:space="preserve">. <tspan fill='#61AFEF'>Idade</tspan>: <tspan fill='#5C6370'>......................</tspan> 19 anos</text>
   <text x="20" y="130">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;_____________&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text>
   <text x="400" y="130" xml:space="preserve">. <tspan fill='#61AFEF'>Setup</tspan>: <tspan fill='#5C6370'>..</tspan> Ryzen 5 5600X, RX570, 16GB, 1TB</text>
-  <text x="20" y="150">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<_____________>&#160;___&#160;&#160;&#160;</text>
+  <text x="20" y="150">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;_____________&gt;&#160;___&#160;&#160;&#160;</text>
   <text x="400" y="150" xml:space="preserve"></text>
   <text x="20" y="170">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|/&#160;_&#160;\&#160;&#160;</text>
   <text x="400" y="170" xml:space="preserve"><tspan fill='#E5C07B'>Linguagens &amp; Tecnologias</tspan> <tspan fill='#5C6370'>------------------------</tspan></text>
@@ -39,6 +39,6 @@
   <text x="20" y="350"></text>
   <text x="400" y="350" xml:space="preserve">. <tspan fill='#61AFEF'>Commits</tspan>: <tspan fill='#5C6370'>........</tspan> 2,116 | <tspan fill='#61AFEF'>Followers</tspan>: <tspan fill='#5C6370'>.....</tspan> 0</text>
   <text x="20" y="370"></text>
-  <text x="400" y="370" xml:space="preserve">. <tspan fill='#61AFEF'>Lines of Code</tspan>: <tspan fill='#5C6370'>.......................</tspan> 17,854</text>
+  <text x="400" y="370" xml:space="preserve">. <tspan fill='#61AFEF'>Lines of Code</tspan>: <tspan fill='#5C6370'>.......................</tspan> 17,833</text>
 </g>
 </svg>
