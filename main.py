@@ -20,7 +20,6 @@ class GitHubMetricsFetcher:
         self.headers = {"Authorization": f"Bearer {token}"}
 
     def fetch_stats(self) -> Dict[str, Any]:
-        # Query ultra limpa sem filtros de histórico complexos para evitar qualquer erro de tipo
         query = """
         query($login: String!) {
           user(login: $login) {
@@ -75,7 +74,7 @@ class GitHubMetricsFetcher:
             return {
                 "repos": str(user_data['repositories']['totalCount']),
                 "stars": str(total_stars),
-                "commits": "2,116", # Valor estático/estimado seguro para evitar travamento de API
+                "commits": "2,116",
                 "followers": str(user_data['followers']['totalCount']),
                 "loc": f"{total_loc:,}"
             }
@@ -92,16 +91,19 @@ class SvgRenderer:
 
     def _build_right_column(self) -> List[str]:
         return [
-            f"<tspan fill='#E5C07B'>nicolas@gatti</tspan> <tspan fill='#5C6370'>-----------------------------------</tspan>",
+            f"<tspan fill='#E5C07B'>      Bem-vindo ao meu perfil!     </tspan>",
+            f"<tspan fill='#5C6370'>-----------------------------------</tspan>",
+            f". <tspan fill='#61AFEF'>Email</tspan>: <tspan fill='#5C6370'>.........</tspan> nicolasgatti2101@gmail.com",
+            f". <tspan fill='#61AFEF'>LinkedIn</tspan>: <tspan fill='#5C6370'>......</tspan> linkedin.com/in/nicolas-gatti",
             f". <tspan fill='#61AFEF'>Idade</tspan>: <tspan fill='#5C6370'>......................</tspan> 19 anos",
             f". <tspan fill='#61AFEF'>Setup</tspan>: <tspan fill='#5C6370'>..</tspan> Ryzen 5 5600X, RX570, 16GB, 1TB",
             "",
             f"<tspan fill='#E5C07B'>Linguagens &amp; Tecnologias</tspan> <tspan fill='#5C6370'>------------------------</tspan>",
-            f". <tspan fill='#61AFEF'>Back-End</tspan>: <tspan fill='#5C6370'>.....</tspan> Java, Spring Boot, Python, C#",
-            f". <tspan fill='#61AFEF'>IA &amp; Dados</tspan>: <tspan fill='#5C6370'>...</tspan> LangGraph, Pandas, Scikit-Learn",
+            f". <tspan fill='#61AFEF'>Back-End</tspan>: <tspan fill='#5C6370'>.....</tspan> Java, TypeScript, Python, C#",
+            f". <tspan fill='#61AFEF'>IA &amp; Dados</tspan>: <tspan fill='#5C6370'>...</tspan> LangGraph, Pandas, Perceptron",
             f". <tspan fill='#61AFEF'>Databases</tspan>: <tspan fill='#5C6370'>....</tspan> PostgreSQL, MySQL, SQLAlchemy",
             f". <tspan fill='#61AFEF'>Infra</tspan>: <tspan fill='#5C6370'>........</tspan> Linux, Docker, Azure, Asterisk",
-            f". <tspan fill='#61AFEF'>Front-End</tspan>: <tspan fill='#5C6370'>....</tspan> React, JS, HTML5, Thymeleaf",
+            f". <tspan fill='#61AFEF'>Front-End</tspan>: <tspan fill='#5C6370'>....</tspan> React, JS, HTML5, CSS",
             "",
             f"<tspan fill='#E5C07B'>GitHub Stats</tspan> <tspan fill='#5C6370'>------------------------------------</tspan>",
             f". <tspan fill='#61AFEF'>Repositorios</tspan>: <tspan fill='#5C6370'>...</tspan> {self.metrics['repos']} | <tspan fill='#61AFEF'>Stars</tspan>: <tspan fill='#5C6370'>.........</tspan> {self.metrics['stars']}",
