@@ -1,0 +1,35 @@
+name: Gerar README Dinamico
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Instalar Dependencias
+        run: pip install requests
+        
+      - name: Executar Motor SVG
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: python main.py
+        
+      - name: Commit e Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add github_stats.svg
+          git commit -m "chore: atualiza metricas do github" || echo "Sem mudanças para commitar"
+          git push
