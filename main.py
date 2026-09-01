@@ -15,19 +15,31 @@ class GitHubMetricsFetcher:
         variables = {"login": self.username}
         
         try:
+            print(f"Buscando dados para o usuario: {self.username}...")
             response = requests.post(
                 self.GRAPHQL_URL, 
                 json={'query': query, 'variables': variables}, 
                 headers=self.headers,
                 timeout=10
             )
-            response.raise_for_status()
+            # Levanta exceção se o status HTTP for de erro (ex: 401, 403, 404)
+            response.raise_for_status() 
             return self._parse_metrics(response.json())
-        except requests.exceptions.RequestException:
+            
+        except requests.exceptions.HTTPError as e:
+            print(f"ERRO HTTP DA API: Falha de autenticação ou limite excedido. Detalhes: {e}")
+            print(f"Resposta bruta da API: {response.text}")
+            sys.exit(1)
+        except requests.exceptions.RequestException as e:
+            print(f"ERRO DE REDE: Nao foi possivel conectar a API do GitHub. Detalhes: {e}")
             sys.exit(1)
 
     def _parse_metrics(self, data: Dict[str, Any]) -> Dict[str, str]:
         try:
+            if 'errors' in data:
+                print(f"ERRO GRAPHQL: A query falhou. Detalhes: {data['errors']}")
+                sys.exit(1)
+                
             user_data = data['data']['user']
             repos = user_data['repositories']['nodes']
             
@@ -50,7 +62,8 @@ class GitHubMetricsFetcher:
                 "followers": str(user_data['followers']['totalCount']),
                 "loc": f"{total_loc:,}"
             }
-        except KeyError:
+        except KeyError as e:
+            print(f"ERRO DE PARSING: Estrutura JSON inesperada. Chave faltando: {e}")
             sys.exit(1)
 
 
@@ -106,12 +119,20 @@ class SvgRenderer:
 
         with open(filename, 'w', encoding='utf-8') as f:
             f.write("\n".join(svg_content))
+        print(f"Sucesso: Arquivo {filename} gerado corretamente.")
 
 
 if __name__ == "__main__":
     GITHUB_TOKEN = os.getenv("GH_TOKEN")
     
+    # Validação rigorosa de estado do Token
     if not GITHUB_TOKEN:
+        print("ERRO CRÍTICO: A variável 'GH_TOKEN' está vazia ou não foi injetada no container.")
+        print("Verifique se o nome da secret em Settings > Secrets and variables > Actions é exatamente 'GH_TOKEN'.")
+        sys.exit(1)
+    
+    if len(GITHUB_TOKEN) < 30:
+        print(f"ERRO DE INTEGRIDADE: O token injetado parece inválido ou curto demais ({len(GITHUB_TOKEN)} caracteres).")
         sys.exit(1)
 
     ASCII_ART = [
