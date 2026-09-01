@@ -3,6 +3,15 @@ import sys
 import requests
 from typing import Dict, Any, List
 
+print("Iniciando script python...")
+GITHUB_TOKEN = os.getenv("GH_TOKEN")
+
+if not GITHUB_TOKEN:
+    print("ERRO: GITHUB_TOKEN nao encontrado no ambiente.")
+    sys.exit(1)
+else:
+    print(f"Token detectado com sucesso (tamanho: {len(GITHUB_TOKEN)} caracteres).")
+
 class GitHubMetricsFetcher:
     GRAPHQL_URL = "https://api.github.com/graphql"
     
@@ -15,29 +24,26 @@ class GitHubMetricsFetcher:
         variables = {"login": self.username}
         
         try:
-            print(f"Buscando dados para o usuario: {self.username}...")
+            print(f"Enviando requisicao GraphQL para o usuario: {self.username}")
             response = requests.post(
                 self.GRAPHQL_URL, 
                 json={'query': query, 'variables': variables}, 
                 headers=self.headers,
                 timeout=10
             )
-            # Levanta exceção se o status HTTP for de erro (ex: 401, 403, 404)
-            response.raise_for_status() 
+            print(f"Status HTTP recebido: {response.status_code}")
+            response.raise_for_status()
             return self._parse_metrics(response.json())
-            
-        except requests.exceptions.HTTPError as e:
-            print(f"ERRO HTTP DA API: Falha de autenticação ou limite excedido. Detalhes: {e}")
-            print(f"Resposta bruta da API: {response.text}")
-            sys.exit(1)
-        except requests.exceptions.RequestException as e:
-            print(f"ERRO DE REDE: Nao foi possivel conectar a API do GitHub. Detalhes: {e}")
+        except Exception as e:
+            print(f"EXCECAO CAPTURADA NO FETCH: {e}")
+            if 'response' in locals() and hasattr(response, 'text'):
+                print(f"Corpo da resposta: {response.text}")
             sys.exit(1)
 
     def _parse_metrics(self, data: Dict[str, Any]) -> Dict[str, str]:
         try:
             if 'errors' in data:
-                print(f"ERRO GRAPHQL: A query falhou. Detalhes: {data['errors']}")
+                print(f"Erros retornados pela API do GraphQL: {data['errors']}")
                 sys.exit(1)
                 
             user_data = data['data']['user']
@@ -62,8 +68,8 @@ class GitHubMetricsFetcher:
                 "followers": str(user_data['followers']['totalCount']),
                 "loc": f"{total_loc:,}"
             }
-        except KeyError as e:
-            print(f"ERRO DE PARSING: Estrutura JSON inesperada. Chave faltando: {e}")
+        except Exception as e:
+            print(f"EXCECAO CAPTURADA NO PARSE: {e}")
             sys.exit(1)
 
 
@@ -119,22 +125,10 @@ class SvgRenderer:
 
         with open(filename, 'w', encoding='utf-8') as f:
             f.write("\n".join(svg_content))
-        print(f"Sucesso: Arquivo {filename} gerado corretamente.")
+        print(f"Arquivo {filename} gerado com sucesso!")
 
 
 if __name__ == "__main__":
-    GITHUB_TOKEN = os.getenv("GH_TOKEN")
-    
-    # Validação rigorosa de estado do Token
-    if not GITHUB_TOKEN:
-        print("ERRO CRÍTICO: A variável 'GH_TOKEN' está vazia ou não foi injetada no container.")
-        print("Verifique se o nome da secret em Settings > Secrets and variables > Actions é exatamente 'GH_TOKEN'.")
-        sys.exit(1)
-    
-    if len(GITHUB_TOKEN) < 30:
-        print(f"ERRO DE INTEGRIDADE: O token injetado parece inválido ou curto demais ({len(GITHUB_TOKEN)} caracteres).")
-        sys.exit(1)
-
     ASCII_ART = [
         "               a8888b.                  ",
         "              d888888b                  ",
