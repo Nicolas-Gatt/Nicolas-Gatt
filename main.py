@@ -19,7 +19,7 @@ class GitHubMetricsFetcher:
         self.username = username
         self.headers = {"Authorization": f"Bearer {token}"}
 
-    def fetch_stats(self) -> Dict[str, Any]:
+    def fetch_stats(self) -> Dict[str, Any]: 
         query = """
         query($login: String!) {
           user(login: $login) {
