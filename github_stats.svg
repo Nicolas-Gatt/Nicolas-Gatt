@@ -21,11 +21,11 @@
   <text x="20" y="170">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;_____________&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</text>
   <text x="400" y="170" xml:space="preserve"><tspan fill='#E5C07B'>Linguagens &amp; Tecnologias</tspan> <tspan fill='#5C6370'>------------------------</tspan></text>
   <text x="20" y="190">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;_____________&gt;&#160;___&#160;&#160;&#160;</text>
-  <text x="400" y="190" xml:space="preserve">. <tspan fill='#61AFEF'>Back-End</tspan>: <tspan fill='#5C6370'>.....</tspan> Java, TypeScript, Python, C#</text>
+  <text x="400" y="190" xml:space="preserve">. <tspan fill='#61AFEF'>Back-End</tspan>: <tspan fill='#5C6370'>.....</tspan> Python, Java, TypeScript, C#</text>
   <text x="20" y="210">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|/&#160;_&#160;\&#160;&#160;</text>
   <text x="400" y="210" xml:space="preserve">. <tspan fill='#61AFEF'>IA &amp; Dados</tspan>: <tspan fill='#5C6370'>...</tspan> LangGraph, Pandas, Perceptron</text>
   <text x="20" y="230">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;|&#160;|&#160;</text>
-  <text x="400" y="230" xml:space="preserve">. <tspan fill='#61AFEF'>Databases</tspan>: <tspan fill='#5C6370'>....</tspan> PostgreSQL, MySQL, SQLAlchemy</text>
+  <text x="400" y="230" xml:space="preserve">. <tspan fill='#61AFEF'>Databases</tspan>: <tspan fill='#5C6370'>....</tspan> PostgreSQL, MySQL, SQLite</text>
   <text x="20" y="250">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|_|&#160;|&#160;</text>
   <text x="400" y="250" xml:space="preserve">. <tspan fill='#61AFEF'>Infra</tspan>: <tspan fill='#5C6370'>........</tspan> Linux, Docker, Azure, Asterisk</text>
   <text x="20" y="270">&#160;&#160;&#160;&#160;&#160;&#160;&#160;___|&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;|\___/&#160;&#160;</text>
